@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="READBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="READBModelStoreContainer">
+          <EntitySet Name="tblAssignmentDetails" EntityType="READBModel.Store.tblAssignmentDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblAssignments" EntityType="READBModel.Store.tblAssignments" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblFaqs" EntityType="READBModel.Store.tblFaqs" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblQueries" EntityType="READBModel.Store.tblQueries" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="tblUsers" EntityType="READBModel.Store.tblUsers" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__tblAssign__user___0519C6AF" Association="READBModel.Store.FK__tblAssign__user___0519C6AF">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblAssignments" EntitySet="tblAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblAssign__user___0AD2A005" Association="READBModel.Store.FK__tblAssign__user___0AD2A005">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblAssignmentDetails" EntitySet="tblAssignmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblAssignm__a_id__09DE7BCC" Association="READBModel.Store.FK__tblAssignm__a_id__09DE7BCC">
+            <End Role="tblAssignments" EntitySet="tblAssignments" />
+            <End Role="tblAssignmentDetails" EntitySet="tblAssignmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuerie__user___0F975522" Association="READBModel.Store.FK__tblQuerie__user___0F975522">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblQueries" EntitySet="tblQueries" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tblAssignmentDetails">
+          <Key>
+            <PropertyRef Name="ad_id" />
+          </Key>
+          <Property Name="ad_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="a_id" Type="bigint" />
+          <Property Name="user_id" Type="bigint" />
+          <Property Name="student_roll_no" Type="varchar" MaxLength="100" />
+          <Property Name="a_file_name" Type="varchar" MaxLength="100" />
+          <Property Name="ad_uploaded_date" Type="datetime" />
+          <Property Name="ad_marks" Type="decimal" Precision="3" Scale="2" />
+        </EntityType>
+        <EntityType Name="tblAssignments">
+          <Key>
+            <PropertyRef Name="a_id" />
+          </Key>
+          <Property Name="a_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="a_name" Type="varchar" MaxLength="50" />
+          <Property Name="a_description" Type="varchar" MaxLength="100" />
+          <Property Name="a_file_name" Type="varchar" MaxLength="100" />
+          <Property Name="course_name" Type="varchar" MaxLength="20" />
+          <Property Name="batch_no" Type="varchar" MaxLength="50" />
+          <Property Name="course_year" Type="varchar" MaxLength="5" />
+          <Property Name="course_semester" Type="varchar" MaxLength="20" />
+          <Property Name="a_assigned_by" Type="varchar" MaxLength="50" />
+          <Property Name="user_id" Type="bigint" />
+          <Property Name="a_assigned_date" Type="datetime" />
+          <Property Name="a_submit_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblFaqs">
+          <Key>
+            <PropertyRef Name="f_id" />
+          </Key>
+          <Property Name="f_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="f_parent_id" Type="int" />
+          <Property Name="f_description" Type="text" />
+        </EntityType>
+        <EntityType Name="tblQueries">
+          <Key>
+            <PropertyRef Name="q_id" />
+          </Key>
+          <Property Name="q_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="q_parent_id" Type="bigint" />
+          <Property Name="user_id" Type="bigint" />
+          <Property Name="q_description" Type="varchar" MaxLength="200" />
+          <Property Name="q_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="user_type" Type="varchar" MaxLength="10" />
+          <Property Name="course_name" Type="varchar" MaxLength="20" />
+          <Property Name="batch_no" Type="varchar" MaxLength="50" />
+          <Property Name="course_year" Type="varchar" MaxLength="5" />
+          <Property Name="course_semester" Type="varchar" MaxLength="20" />
+          <Property Name="student_roll_no" Type="varchar" MaxLength="34" StoreGeneratedPattern="Computed" />
+          <Property Name="user_name" Type="varchar" MaxLength="20" />
+          <Property Name="user_password" Type="varchar" MaxLength="20" />
+          <Property Name="user_status" Type="varchar" MaxLength="6" />
+        </EntityType>
+        <Association Name="FK__tblAssign__user___0519C6AF">
+          <End Role="tblUsers" Type="READBModel.Store.tblUsers" Multiplicity="0..1" />
+          <End Role="tblAssignments" Type="READBModel.Store.tblAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="tblAssignments">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblAssign__user___0AD2A005">
+          <End Role="tblUsers" Type="READBModel.Store.tblUsers" Multiplicity="0..1" />
+          <End Role="tblAssignmentDetails" Type="READBModel.Store.tblAssignmentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="tblAssignmentDetails">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblAssignm__a_id__09DE7BCC">
+          <End Role="tblAssignments" Type="READBModel.Store.tblAssignments" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblAssignmentDetails" Type="READBModel.Store.tblAssignmentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAssignments">
+              <PropertyRef Name="a_id" />
+            </Principal>
+            <Dependent Role="tblAssignmentDetails">
+              <PropertyRef Name="a_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuerie__user___0F975522">
+          <End Role="tblUsers" Type="READBModel.Store.tblUsers" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblQueries" Type="READBModel.Store.tblQueries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="tblQueries">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="READBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="READBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAssignmentDetails" EntityType="READBModel.tblAssignmentDetails" />
+          <EntitySet Name="tblAssignments" EntityType="READBModel.tblAssignments" />
+          <EntitySet Name="tblFaqs" EntityType="READBModel.tblFaqs" />
+          <EntitySet Name="tblQueries" EntityType="READBModel.tblQueries" />
+          <EntitySet Name="tblUsers" EntityType="READBModel.tblUsers" />
+          <AssociationSet Name="FK__tblAssign__user___0AD2A005" Association="READBModel.FK__tblAssign__user___0AD2A005">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblAssignmentDetails" EntitySet="tblAssignmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblAssignm__a_id__09DE7BCC" Association="READBModel.FK__tblAssignm__a_id__09DE7BCC">
+            <End Role="tblAssignments" EntitySet="tblAssignments" />
+            <End Role="tblAssignmentDetails" EntitySet="tblAssignmentDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblAssign__user___0519C6AF" Association="READBModel.FK__tblAssign__user___0519C6AF">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblAssignments" EntitySet="tblAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblQuerie__user___0F975522" Association="READBModel.FK__tblQuerie__user___0F975522">
+            <End Role="tblUsers" EntitySet="tblUsers" />
+            <End Role="tblQueries" EntitySet="tblQueries" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tblAssignmentDetails">
+          <Key>
+            <PropertyRef Name="ad_id" />
+          </Key>
+          <Property Type="Int64" Name="ad_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="a_id" />
+          <Property Type="Int64" Name="user_id" />
+          <Property Type="String" Name="student_roll_no" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="a_file_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="ad_uploaded_date" />
+          <Property Type="Decimal" Name="ad_marks" Precision="3" Scale="2" />
+          <NavigationProperty Name="tblUsers" Relationship="READBModel.FK__tblAssign__user___0AD2A005" FromRole="tblAssignmentDetails" ToRole="tblUsers" />
+          <NavigationProperty Name="tblAssignments" Relationship="READBModel.FK__tblAssignm__a_id__09DE7BCC" FromRole="tblAssignmentDetails" ToRole="tblAssignments" />
+        </EntityType>
+        <EntityType Name="tblAssignments">
+          <Key>
+            <PropertyRef Name="a_id" />
+          </Key>
+          <Property Type="Int64" Name="a_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="a_name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="a_description" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="a_file_name" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="course_name" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="batch_no" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="course_year" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="course_semester" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="a_assigned_by" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int64" Name="user_id" />
+          <Property Type="DateTime" Name="a_assigned_date" />
+          <Property Type="DateTime" Name="a_submit_date" />
+          <NavigationProperty Name="tblAssignmentDetails" Relationship="READBModel.FK__tblAssignm__a_id__09DE7BCC" FromRole="tblAssignments" ToRole="tblAssignmentDetails" />
+          <NavigationProperty Name="tblUsers" Relationship="READBModel.FK__tblAssign__user___0519C6AF" FromRole="tblAssignments" ToRole="tblUsers" />
+        </EntityType>
+        <EntityType Name="tblFaqs">
+          <Key>
+            <PropertyRef Name="f_id" />
+          </Key>
+          <Property Type="Int32" Name="f_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="f_parent_id" />
+          <Property Type="String" Name="f_description" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tblQueries">
+          <Key>
+            <PropertyRef Name="q_id" />
+          </Key>
+          <Property Type="Int64" Name="q_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="q_parent_id" />
+          <Property Type="Int64" Name="user_id" />
+          <Property Type="String" Name="q_description" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="q_date" />
+          <NavigationProperty Name="tblUsers" Relationship="READBModel.FK__tblQuerie__user___0F975522" FromRole="tblQueries" ToRole="tblUsers" />
+        </EntityType>
+        <EntityType Name="tblUsers">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Type="Int64" Name="user_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="name" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="user_type" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="course_name" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="batch_no" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="course_year" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="course_semester" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="student_roll_no" MaxLength="34" FixedLength="false" Unicode="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="String" Name="user_name" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="user_password" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="user_status" MaxLength="6" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblAssignmentDetails" Relationship="READBModel.FK__tblAssign__user___0AD2A005" FromRole="tblUsers" ToRole="tblAssignmentDetails" />
+          <NavigationProperty Name="tblAssignments" Relationship="READBModel.FK__tblAssign__user___0519C6AF" FromRole="tblUsers" ToRole="tblAssignments" />
+          <NavigationProperty Name="tblQueries" Relationship="READBModel.FK__tblQuerie__user___0F975522" FromRole="tblUsers" ToRole="tblQueries" />
+        </EntityType>
+        <Association Name="FK__tblAssign__user___0AD2A005">
+          <End Type="READBModel.tblUsers" Role="tblUsers" Multiplicity="0..1" />
+          <End Type="READBModel.tblAssignmentDetails" Role="tblAssignmentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="tblAssignmentDetails">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblAssignm__a_id__09DE7BCC">
+          <End Type="READBModel.tblAssignments" Role="tblAssignments" Multiplicity="0..1" />
+          <End Type="READBModel.tblAssignmentDetails" Role="tblAssignmentDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAssignments">
+              <PropertyRef Name="a_id" />
+            </Principal>
+            <Dependent Role="tblAssignmentDetails">
+              <PropertyRef Name="a_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblAssign__user___0519C6AF">
+          <End Type="READBModel.tblUsers" Role="tblUsers" Multiplicity="0..1" />
+          <End Type="READBModel.tblAssignments" Role="tblAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="tblAssignments">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblQuerie__user___0F975522">
+          <End Type="READBModel.tblUsers" Role="tblUsers" Multiplicity="0..1" />
+          <End Type="READBModel.tblQueries" Role="tblQueries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblUsers">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="tblQueries">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="READBModelStoreContainer" CdmEntityContainer="READBEntities">
+          <EntitySetMapping Name="tblAssignmentDetails">
+            <EntityTypeMapping TypeName="READBModel.tblAssignmentDetails">
+              <MappingFragment StoreEntitySet="tblAssignmentDetails">
+                <ScalarProperty Name="ad_marks" ColumnName="ad_marks" />
+                <ScalarProperty Name="ad_uploaded_date" ColumnName="ad_uploaded_date" />
+                <ScalarProperty Name="a_file_name" ColumnName="a_file_name" />
+                <ScalarProperty Name="student_roll_no" ColumnName="student_roll_no" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="a_id" ColumnName="a_id" />
+                <ScalarProperty Name="ad_id" ColumnName="ad_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAssignments">
+            <EntityTypeMapping TypeName="READBModel.tblAssignments">
+              <MappingFragment StoreEntitySet="tblAssignments">
+                <ScalarProperty Name="a_submit_date" ColumnName="a_submit_date" />
+                <ScalarProperty Name="a_assigned_date" ColumnName="a_assigned_date" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="a_assigned_by" ColumnName="a_assigned_by" />
+                <ScalarProperty Name="course_semester" ColumnName="course_semester" />
+                <ScalarProperty Name="course_year" ColumnName="course_year" />
+                <ScalarProperty Name="batch_no" ColumnName="batch_no" />
+                <ScalarProperty Name="course_name" ColumnName="course_name" />
+                <ScalarProperty Name="a_file_name" ColumnName="a_file_name" />
+                <ScalarProperty Name="a_description" ColumnName="a_description" />
+                <ScalarProperty Name="a_name" ColumnName="a_name" />
+                <ScalarProperty Name="a_id" ColumnName="a_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblFaqs">
+            <EntityTypeMapping TypeName="READBModel.tblFaqs">
+              <MappingFragment StoreEntitySet="tblFaqs">
+                <ScalarProperty Name="f_description" ColumnName="f_description" />
+                <ScalarProperty Name="f_parent_id" ColumnName="f_parent_id" />
+                <ScalarProperty Name="f_id" ColumnName="f_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblQueries">
+            <EntityTypeMapping TypeName="READBModel.tblQueries">
+              <MappingFragment StoreEntitySet="tblQueries">
+                <ScalarProperty Name="q_date" ColumnName="q_date" />
+                <ScalarProperty Name="q_description" ColumnName="q_description" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="q_parent_id" ColumnName="q_parent_id" />
+                <ScalarProperty Name="q_id" ColumnName="q_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblUsers">
+            <EntityTypeMapping TypeName="READBModel.tblUsers">
+              <MappingFragment StoreEntitySet="tblUsers">
+                <ScalarProperty Name="user_status" ColumnName="user_status" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="student_roll_no" ColumnName="student_roll_no" />
+                <ScalarProperty Name="course_semester" ColumnName="course_semester" />
+                <ScalarProperty Name="course_year" ColumnName="course_year" />
+                <ScalarProperty Name="batch_no" ColumnName="batch_no" />
+                <ScalarProperty Name="course_name" ColumnName="course_name" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="REAModel">
+        <EntityTypeShape EntityType="READBModel.tblAssignmentDetails" Width="1.5" PointX="5.25" PointY="6" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="READBModel.tblAssignments" Width="1.5" PointX="3" PointY="6.625" Height="3.7109993489583317" />
+        <EntityTypeShape EntityType="READBModel.tblFaqs" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5956835937499996" />
+        <EntityTypeShape EntityType="READBModel.tblQueries" Width="1.5" PointX="3" PointY="11" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="READBModel.tblUsers" Width="1.5" PointX="0.75" PointY="4.5" Height="3.7109993489583344" />
+        <AssociationConnector Association="READBModel.FK__tblAssign__user___0AD2A005" >
+          <ConnectorPoint PointX="2.25" PointY="6.28125" />
+          <ConnectorPoint PointX="5.25" PointY="6.28125" />
+        </AssociationConnector>
+        <AssociationConnector Association="READBModel.FK__tblAssignm__a_id__09DE7BCC" >
+          <ConnectorPoint PointX="4.5" PointY="7.68724609375" />
+          <ConnectorPoint PointX="5.25" PointY="7.68724609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="READBModel.FK__tblAssign__user___0519C6AF" >
+          <ConnectorPoint PointX="2.25" PointY="7.4179996744791676" />
+          <ConnectorPoint PointX="3" PointY="7.4179996744791676" />
+        </AssociationConnector>
+        <AssociationConnector Association="READBModel.FK__tblQuerie__user___0F975522" >
+          <ConnectorPoint PointX="1.5" PointY="8.2109993489583353" />
+          <ConnectorPoint PointX="1.5" PointY="12.0862939453125" />
+          <ConnectorPoint PointX="3" PointY="12.0862939453125" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
